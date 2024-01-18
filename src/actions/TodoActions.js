@@ -8,6 +8,13 @@ export const newTask = (data) => {
 export const deleteTask = (id) => {
     return {
         type: 'Remove task',
-        patload: id,
+        payload: id,
+    }
+}
+
+export const openForm = (formStatus) => {
+    return {
+        type: 'Open form',
+        payload: formStatus,
     }
 }

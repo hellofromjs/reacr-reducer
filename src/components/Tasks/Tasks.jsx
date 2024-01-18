@@ -1,10 +1,12 @@
+import { useState } from "react"
 import { useGlobalContext } from "../../context/TasksContext"
 import AddTask from "../AddTask/AddTask"
 import Task from "../Task/Task"
+import Jokes from "../Jokes/Jokes"
 
 const Tasks = () => {
     const { tasks, isOpen, handleForm } = useGlobalContext()
-   
+
     return (
         <div className="container">
             <h2 className="m-5 text-center">Tasks list</h2>
@@ -16,7 +18,7 @@ const Tasks = () => {
             </div>
             {isOpen ? (<AddTask/>) : (
                 <ul className="list-group">
-                    {tasks.length && tasks.map(task => 
+                    {tasks.length > 0 && tasks.map(task => 
                         <Task
                             id={task.id}
                             key={task.id} 
@@ -26,6 +28,9 @@ const Tasks = () => {
                     )}
                 </ul>
             )}
+
+            <Jokes />
+            
         </div>
     )
 }

@@ -1,7 +1,8 @@
 import { useContext, useReducer } from "react";
 import TodoReducer from "../reducers/TodoReducer";
 import React from "react";
-import { newTask, deleteTask } from "../actions/TodoActions";
+import { newTask, deleteTask, openForm } from "../actions/TodoActions";
+import { newJokes } from "../actions/JokeActions";
 
 const AppContext = React.createContext();
 
@@ -24,17 +25,26 @@ const initialState = {
         },
     ],
     isOpen: false,
+    jokes: [],
 }
 
 const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(TodoReducer, initialState)
-    
+
     const addTask = (data) => {
         dispatch(newTask(data))
     }
 
-    const handleForm = (data) => {
-        
+    const handleForm = (formStatus) => {
+        dispatch(openForm(formStatus))
+    }
+
+    const removeTask = (id) => {
+        dispatch(deleteTask(id))
+    }
+
+    const addJokes = (data) => {
+        dispatch(newJokes(data))
     }
 
     return (
@@ -42,6 +52,8 @@ const AppProvider = ({ children }) => {
             ...state,
             addTask,
             handleForm,
+            removeTask,
+            addJokes,
         }}>
             {children}
         </AppContext.Provider>
@@ -52,5 +64,5 @@ export const useGlobalContext = () => {
     return useContext(AppContext)
 }
 
-export { AppContext, AppProvider}
+export { AppProvider }
 
